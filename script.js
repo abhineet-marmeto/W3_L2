@@ -25,18 +25,32 @@ function isFavorite(imageId) {
   return favorites.some(fav => fav.id === imageId);
 }
 
+// async function displayFeaturedImage(query) {
+//   const data = await fetchImages(query, 1);
+//   const image = data.photos[0];
+
+//   const featuredSection = document.getElementById('featured-image');
+//   featuredSection.innerHTML = `
+//         <div class="featured-details">
+//             <h2>${image.alt}</h2>
+//             <p>${image.photographer}</p>
+//             <button>EXPLORE MORE</button>
+//         </div>
+//         <img src="${image.src.large}" alt="${image.alt}">` ;
+// }
+
 async function displayFeaturedImage(query) {
   const data = await fetchImages(query, 1);
   const image = data.photos[0];
 
   const featuredSection = document.getElementById('featured-image');
   featuredSection.innerHTML = `
+        <img src="${image.src.large}" alt="${image.alt}">
         <div class="featured-details">
             <h2>${image.alt}</h2>
             <p>${image.photographer}</p>
-            <button>EXPLORE MORE</button>
+            <button onclick="window.location.href='${image.photographer_url}'">EXPLORE MORE</button>
         </div>
-        <img src="${image.src.large}" alt="${image.alt}">
     `;
 }
 
@@ -47,13 +61,16 @@ async function displaySimilarImages(query) {
   similarContainer.innerHTML = '';
 
   data.photos.forEach(image => {
+    console.log(image);
+
     const isFav = isFavorite(image.id);
     const imageElement = document.createElement('div');
     imageElement.className = "image-container";
     imageElement.innerHTML = `
-            <img src="${image.src.medium}" alt="${image.alt}">
-              <i class="heart-icon" data-id="${image.id}">${isFav ? '❤️' : '&#9825; '}</i>
-              `;
+      <img src="${image.src.medium}" alt="${image.alt}">
+      <i class="heart-icon fa ${isFav ? 'fa-heart' : 'fa-regular fa-heart'}" data-id="${image.id}"></i>
+      <div class="image-text">${image.alt} || ${query}</div>
+    `;
     imageElement.querySelector('.heart-icon').addEventListener('click', () => {
       toggleFavorite(image);
       displaySimilarImages(query); // Update the similar images to reflect the favorite status
@@ -70,9 +87,10 @@ function displayFavoriteImages() {
     const imageElement = document.createElement('div');
     imageElement.className = "image-container";
     imageElement.innerHTML = `
-                  <img src="${image.src.medium}" alt="${image.alt}">
-                  <i class="heart-icon" data-id="${image.id}">❤️</i>
-              `;
+      <img src="${image.src.medium}" alt="${image.alt}">
+      <i class="heart-icon fa fa-heart" data-id="${image.id}"></i>
+      <div class="image-text">${image.alt}</div>
+    `;
     imageElement.querySelector('.heart-icon').addEventListener('click', () => {
       toggleFavorite(image);
       displayFavoriteImages(); // Update the favorites section to reflect the removal
@@ -82,10 +100,13 @@ function displayFavoriteImages() {
   });
 }
 
+
 function initCarousel(containerId, prevButtonClass, nextButtonClass) {
   const container = document.getElementById(containerId);
   const prevButton = document.querySelector(prevButtonClass);
   const nextButton = document.querySelector(nextButtonClass);
+  // const fav_Button = document.querySelectorAll("#favorites-list button");
+  // fav_Button.forEach(button => button.style.display = "");
 
   let scrollAmount = 0;
   const scrollStep = 250;
@@ -132,4 +153,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initCarousel('similar-images', '.carousel-prev', '.carousel-next');
   initCarousel('favorite-images', '.carousel-prev', '.carousel-next');
+
+  // if (favorites.length < 1) {
+  //   const fav_Button = document.querySelectorAll("#favorites-list button");
+  //   fav_Button.forEach(button => button.style.display = "none");
+  // }
 });
+
+

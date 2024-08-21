@@ -4,11 +4,21 @@ html {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+button {
+  border-radius: 5px;
+}
+
+.hero button:hover,
+.featured-image-container .featured-details button:hover {
+  background-color: rgb(250, 75, 12);
 }
 
 header,
 section {
-  padding: 20px;
+  padding-bottom: 10px;
 }
 
 header {
@@ -27,6 +37,15 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
+  padding-inline: 20px;
+}
+
+.navbar .quick-nav {
+  display: flex;
+  gap: 25px;
+  color: white;
+  font-size: 16px;
 }
 
 .navbar .logo {
@@ -34,29 +53,22 @@ header {
   font-weight: bold;
 }
 
-
-.navbar ul {
-  list-style-type: none;
-  display: flex;
-  gap: 15px;
-}
-
-.navbar ul li a {
-  color: white;
-  text-decoration: none;
-  font-size: 16px;
-}
-
 .navbar .icons i {
   margin-left: 15px;
   cursor: pointer;
+  font-size: 18px;
+  color: white;
 }
 
 .hero {
   background: url('hero-bg.jpeg') center/cover no-repeat;
   color: white;
-  text-align: center;
   padding: 80px 20px;
+  text-align: left;
+  display: flex;
+  height: calc(100vh - 267px);
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .hero h1 {
@@ -78,6 +90,10 @@ header {
   cursor: pointer;
 }
 
+#search-button {
+  background-color: #fc6c74c3;
+}
+
 .search-section {
   text-align: center;
   margin: 30px 0;
@@ -87,6 +103,8 @@ header {
   width: 70%;
   padding: 10px;
   font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .search-section button {
@@ -95,22 +113,26 @@ header {
   cursor: pointer;
   background: none;
   border: none;
+  color: #333;
 }
 
 .featured-image-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-bottom: 20px;
+  padding-inline: 20px;
 }
 
 .featured-image-container img {
-  width: 476px;
-  height: 335.13px;
+  /* width: 376px; */
+  height: 435px;
+  border-radius: 20px;
 }
 
 .featured-image-container .featured-details {
-  max-width: 40%;
+  max-width: auto;
 }
 
 .featured-image-container .featured-details h2 {
@@ -132,16 +154,32 @@ header {
   cursor: pointer;
 }
 
+.image-text {
+  padding-inline: 5px;
+  font-weight: 600;
+  font-size: medium;
+  margin-top: 5px;
+}
+
 .carousel {
   margin: 20px 0;
   position: relative;
+  padding-inline: 28px;
+}
+
+hr {
+  margin-inline: 20px;
 }
 
 .carousel-container {
   display: flex;
-  gap: 15px;
+  gap: 25px;
   overflow-x: scroll;
   scroll-behavior: smooth;
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
 }
 
 .carousel-container img {
@@ -149,6 +187,7 @@ header {
   height: 370px;
   object-fit: cover;
   position: relative;
+  border-radius: 10px;
 }
 
 .carousel-container .image-container {
@@ -160,10 +199,10 @@ header {
   top: 10px;
   right: 10px;
   font-size: 1.5em;
-  color: white;
+  color: rgb(254, 90, 90);
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 5px;
+  padding: 10px;
   border-radius: 50%;
 }
 
@@ -194,8 +233,14 @@ header {
 }
 
 select {
-  padding: 5px;
+  /* padding: 5px; */
   font-size: 1em;
+  /* outline: none; */
+  border: none;
+  /* text-decoration: underline; */
+  border-bottom: 2px solid salmon;
+  color: #f72d37;
+  width: 60px;
 }
 
 @media (min-width: 768px) {
@@ -205,6 +250,26 @@ select {
 
   .hero p {
     font-size: 1.5em;
+  }
+
+  .featured-image-container {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .featured-image-container img {
+    width: 476px;
+    height: 335px;
+    margin-right: 20px;
+    border-radius: 20px;
+  }
+
+  .featured-image-container .featured-details {
+    max-width: 40%;
+  }
+
+  .hero-text {
+    max-width: 35%;
   }
 
   .search-section input {
