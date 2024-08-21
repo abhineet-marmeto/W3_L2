@@ -52,7 +52,7 @@ async function displaySimilarImages(query) {
     imageElement.className = "image-container";
     imageElement.innerHTML = `
             <img src="${image.src.medium}" alt="${image.alt}">
-              <i class="heart-icon" data-id="${image.id}">${isFav ? '❤️' : '&#9825;'}</i>
+              <i class="heart-icon" data-id="${image.id}">${isFav ? '❤️' : '&#9825; '}</i>
               `;
     imageElement.querySelector('.heart-icon').addEventListener('click', () => {
       toggleFavorite(image);
